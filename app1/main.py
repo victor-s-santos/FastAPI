@@ -14,8 +14,10 @@ class User(BaseModel):
     email: str
 
 user_list = [
-    User(id=1, first_name='Victor', last_name='Silva', email='victor@net.com'),
-    User(id=2, first_name='Suelen', last_name='Simões', email='suelen@net.com')
+    User(id=4, first_name='Victor', last_name='Silva', email='victor@net.com'),
+    User(id=3, first_name='João', last_name='Pedro', email='joao@net.com'),
+    User(id=2, first_name='José', last_name='Carlos', email='jose@net.com'),
+    User(id=1, first_name='Suelen', last_name='Simoes', email='suelen@net.com'),
 ]
 
 #user list route
@@ -23,3 +25,12 @@ user_list = [
 def get_user_list():
     """returns the list of registered users"""
     return(user_list)
+
+#user:id route
+@app1.get('/users/{id_user}')
+def get_user_by_id(id_user: int):
+    """returns the request user by id"""
+    for user in user_list:
+        if(user.id == id_user):
+            return user
+    return("The requested user couldn't be found!")
