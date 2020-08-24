@@ -34,3 +34,9 @@ def get_user_by_id(id_user: int):
         if(user.id == id_user):
             return user
     return("The requested user couldn't be found!")
+
+@app1.post('/users/')
+def post_user(user:User):
+    """insert user in user_list"""
+    user_list.append(user)
+    return(f'The inserted user,{user.first_name}, has been created successfully!')
