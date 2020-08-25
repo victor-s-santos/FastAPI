@@ -1,4 +1,4 @@
-#from typing import Optional
+import yfinance
 import models
 from fastapi import FastAPI, Request, Depends, BackgroundTasks
 from fastapi.templating import Jinja2Templates
@@ -29,7 +29,17 @@ def dashboard(request: Request):
 def fetch_stock_data(id: int):
     db = SessionLocal()
     stock = db.query(Stock).filter(Stock.id == id).first()
-    stock.forward_pe = 10
+    #stock.forward_pe = 10
+    yahoo_data = yfinance.Ticker(stock.symbol)
+
+    stock.ma200 = yahoo_data.info['twoHundredDayAverage']
+    stock.ma50 = yahoo_data.info['fiftyDayAverage']
+    stock.price = yahoo_data.info['previousClose']
+    stock.forward_pe = yahoo_data.info['forwardPE']
+    stock.forward_eps = yahoo_data.info['forwardEps']
+    if yahoo_data.info['dividendYield'] is not None:
+            stock.dividend_yield = yahoo_data.info['dividendYield'] * 100
+
     db.add(stock)
     db.commit()
 
