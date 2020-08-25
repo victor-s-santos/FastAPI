@@ -2,14 +2,18 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-app = FastAPI()
+app2 = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "Python"}
+@app2.get("/")
+def dashboard():
+    """returns the stock dashboard"""
+    return {"Dashboard": "Welcome"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app2.post("/stock")
+def create_stock():
+    """post stocks and stores it in the database"""
+    return{
+        "status_code": 200,
+        "message": "stock created successfully"
+    }
