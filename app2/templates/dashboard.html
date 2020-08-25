@@ -3,5 +3,49 @@
 {% block content %}
 <div>
     <h2>DashBoard Page</h2>
+    <p>Here you are going to see informations about our stock list.</p>
 </div>
+<div class="ui input">
+    <input type="text" placeholder="P/E">
+</div>
+<div class="ui input">
+    <input type="text" placeholder="Dividend Yield">
+</div>
+
+<div class="ui checkbox">
+    <input type="checkbox" name="example">
+    <label>Above 50 day MA</label>
+</div>
+<div class="ui checkbox">
+    <input type="checkbox" name="example">
+    <label>Above 200 day MA</label>
+</div>
+<button class="ui button primary">Filter</button>
+
+
+<table class="ui celled table">
+    <thead>
+      <tr><th>Symbol</th>
+      <th>P/E</th>
+      <th>Dividend Yield</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td data-label="Symbol">MSFT</td>
+        <td data-label="P/E">18</td>
+        <td data-label="Dividend">2</td>
+      </tr>
+      <tr>
+        <td data-label="Symbol">AAPL</td>
+        <td data-label="P/E">44</td>
+        <td data-label="Dividend">3</td>
+      </tr>
+      <tr>
+        <td data-label="Symbol">FB</td>
+        <td data-label="P/E">20</td>
+        <td data-label="Dividend">0</td>
+      </tr>
+    </tbody>
+  </table>
 {% endblock %}
+
