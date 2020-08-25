@@ -1,8 +1,16 @@
 #from typing import Optional
+import models
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from database import SessionLocal, engine
+from sqlalchemy.orm import Session
+
 app2 = FastAPI()
 
+#create tables
+models.Base.metadata.create_all(bind=engine)
+
+#to use html templates
 templates = Jinja2Templates(directory="templates")
 
 @app2.get("/")
