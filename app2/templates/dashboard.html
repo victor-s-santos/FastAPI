@@ -30,22 +30,24 @@ $(document).ready(function() {
     <h2>DashBoard Page</h2>
     <p>Here you are going to see informations about our stock list.</p>
 </div>
-<div class="ui input">
-    <input type="text" placeholder="P/E">
-</div>
-<div class="ui input">
-    <input type="text" placeholder="Dividend Yield">
-</div>
+<form>
+  <div class="ui input">
+      <input name="forward_pe" type="text" placeholder="P/E" value="{{ forward_pe or '' }}">
+  </div>
+  <div class="ui input">
+      <input name="dividend_yield" type="text" placeholder="Dividend Yield" value="{{ dividend_yield or '' }}">
+  </div>
 
-<div class="ui checkbox">
-    <input type="checkbox" name="example">
-    <label>Above 50 day MA</label>
-</div>
-<div class="ui checkbox">
-    <input type="checkbox" name="example">
-    <label>Above 200 day MA</label>
-</div>
-<button class="ui button primary">Filter</button>
+  <div class="ui checkbox">
+      <input type="checkbox" name="ma50">
+      <label>Above 50 day MA</label>
+  </div>
+  <div class="ui checkbox">
+      <input type="checkbox" name="ma200">
+      <label>Above 200 day MA</label>
+  </div>
+  <button type="submit" class="ui button primary">Filter</button>
+</form>
 <div>
   <button id="add_stocks" class="ui button">Add Stocks</button>
 </div>

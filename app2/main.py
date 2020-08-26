@@ -21,9 +21,24 @@ def get_db():
         db.close()
 
 @app2.get("/")
-def dashboard(request: Request, db: Session = Depends(get_db)):
-    """returns the stock dashboard"""
-    stocks = db.query(Stock).all()
+def dashboard(request: Request, forward_pe = None, dividend_yield = None, 
+                ma50 = None, ma200 = None, db: Session = Depends(get_db)
+            ):
+    """returns the stock table"""
+    #stocks = db.query(Stock).all()
+    stocks = db.query(Stock)
+    if forward_pe:
+        stocks = stocks.filter(Stock.forward_pe < forward_pe)
+    
+    if dividend_yield:
+        stocks = stocks.filter(Stock.dividend_yield > dividend_yield)
+    
+    if ma50:
+        stocks = stocks.filter(Stock.price > Stock.ma50)
+    
+    if ma200:
+        stocks = stocks.filter(Stock.price > Stock.ma200)
+
     context = {
         "request": request,
         "stocks": stocks}
