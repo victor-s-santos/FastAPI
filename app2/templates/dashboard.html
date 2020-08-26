@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+$(document).ready(function() {
+  $("#add_stocks").click(function(){
+    $('.ui.modal').modal('show');
+  })
+
+  $("#save").click(function(){
+    let symbols = $("#stock_symbols").val();
+    let stocksymbols = symbols.split("\n");
+    console.log(stocksymbols);
+    for(let i = 0; i < stocksymbols.length; ++i){
+      //console.log(stocksymbols[i]);
+      $.ajax({
+        url: '/stock',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({'symbol': stocksymbols[i]}),
+        dataType: 'json'
+      })
+    }
+    //to hide the opened modal at the end of the loop
+    $('.ui.modal').modal('hide');
+  })
+})
+</script>
 <div>
     <h2>DashBoard Page</h2>
     <p>Here you are going to see informations about our stock list.</p>
@@ -21,7 +46,9 @@
     <label>Above 200 day MA</label>
 </div>
 <button class="ui button primary">Filter</button>
-
+<div>
+  <button id="add_stocks" class="ui button">Add Stocks</button>
+</div>
 
 <table class="ui celled table">
     <thead>
@@ -47,5 +74,27 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Add Stock
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <div class="field">
+          <label>Stock Symbol</label>
+          <textarea id="stock_symbols"></textarea>
+        </div>
+    </div>
+    </div>
+
+    <div class="actions">
+      <div id="save" class="ui positive right labeled icon button">
+        Add Symbols
+        <i class="plus icon"></i>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
