@@ -57,21 +57,13 @@ $(document).ready(function() {
       <th>Dividend Yield</th>
     </tr></thead>
     <tbody>
+      {% for stock in stocks %}
       <tr>
-        <td data-label="Symbol">MSFT</td>
-        <td data-label="P/E">18</td>
-        <td data-label="Dividend">2</td>
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.forward_pe }}</td>
+        <td>{{stock.dividend_yield }}</td>
       </tr>
-      <tr>
-        <td data-label="Symbol">AAPL</td>
-        <td data-label="P/E">44</td>
-        <td data-label="Dividend">3</td>
-      </tr>
-      <tr>
-        <td data-label="Symbol">FB</td>
-        <td data-label="P/E">20</td>
-        <td data-label="Dividend">0</td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 
